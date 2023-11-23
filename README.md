@@ -25,7 +25,8 @@ Cancellations: Removal of a trade (new or amended). Exclude cancelled trades fro
 In your calculations, account for the ‘side’ of the trade (buy or sell), as this affects whether cash is spent or received.
 Interactive Interface: Create an interface ( CLI is fine ) to manually add new trades and cancel existing ones, in addition to those loaded from the CSV file.
 
-# Example: Consider this sample data and the resultant PnL calculation:
+# Example: 
+Consider this sample data and the resultant PnL calculation:
 BBGCode, time, side, quantity, price 
 ABC1, T0, B, 100, 100
 ABC2, T1, B, 50, 200
