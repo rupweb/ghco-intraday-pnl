@@ -1,6 +1,7 @@
 # ghco-intraday-pnl
 
-# Task: Develop an application that processes simplified trade data from a CSV file to calculate and display intraday cash position aggregations (PnL) in USD.
+# Task: 
+Develop an application that processes simplified trade data from a CSV file to calculate and display intraday cash position aggregations (PnL) in USD.
 
 # Key Features:
 Data Reading: Your application should read trade booking information from a provided CSV file.
