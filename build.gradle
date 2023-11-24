@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group 'ghco-intraday-pnl'
+version '1.0-SNAPSHOT'
+
+shadowJar {
+    archiveBaseName.set('ghco-intraday-pnl')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}
+
+jar {
+    manifest.attributes('Main-Class': 'ghco.TheApp')
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.logging.log4j:log4j-core:3.0.0-alpha1'
+    implementation 'org.apache.logging.log4j:log4j-api:3.0.0-alpha1'
+    implementation 'org.apache.logging.log4j:log4j-1.2-api:3.0.0-alpha1'
+
+    implementation 'com.opencsv:opencsv:5.9'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.2'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+}
+
+test {
+    useJUnitPlatform()
+
+    // JVM forks
+    forkEvery = 1
+    maxParallelForks = 1
+
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
+
+    systemProperty "TEST", System.getProperty("TEST")
+
+    // HTML report
+    reports {
+        html {
+            enabled true
+        }
+    }
+}
+
+tasks.build.dependsOn tasks.shadowJar
+
+allprojects {
+    task printAllDependencies(type: DependencyReportTask) {}
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%style{%d{ISO8601}}{white} %highlight{%-5level }[%style{%t}{cyan}] %style{%M}{bright,yellow}: %msg%n%throwable" />
+        </Console>
+ 
+        <RollingFile name="RollingFile"
+            fileName="./logs/ghco.log"
+            filePattern="./logs/$${date:yyyy-MM}/FixApi-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%style{%d{ISO8601}}{white} %highlight{%-5level }[%style{%t}{cyan}] %style{%M}{bright,yellow}: %msg%n%throwable" />
+            <Policies>
+                <!-- roll over daily and when the file reaches 50 MegaBytes -->
+                <SizeBasedTriggeringPolicy size="50 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+        </Root>
+ 
+        <Logger name="admin" level="info"></Logger>
+    </Loggers>
+</configuration>
