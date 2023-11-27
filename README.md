@@ -1,5 +1,17 @@
 # ghco-intraday-pnl
 
+## Pre-built jar
+Navigate to `build/libs` and download `ghco-intraday-pnl.jar`<br>
+Run `java -jar ghco-intraday-pnl.jar`<br>
+Or run `java -jar ghco-intraday-pnl.jar "\ghco_trades.csv"`<br>
+
+## Docker
+Navigate to project root directory<br>
+`docker compose -f docker/docker-compose.yml build`<br>
+`docker compose -f docker/docker-compose.yml run ghco`
+
+To change the trades list, change `,"/ghco_trades.csv"` in the dockerfile ENTRYPOINT
+
 ## Git
 git clone git@github.com:rupweb/ghco-intraday-pnl.git
 
@@ -8,18 +20,11 @@ git clone git@github.com:rupweb/ghco-intraday-pnl.git
 `gradle build --scan` will build & run tests with a gradle build scan.<br>
 For example: https://scans.gradle.com/s/rtpsa7alixdxw
 
-## Jar
+## Build your own jar
 `gradle shadowJar` will make a fat jar in the `/build/libs` directory.<br>
 Navigate to `build/libs` and move `ghco_trades.csv` or another csv of trades to that directory.<br>
 Run `java -jar ghco-intraday-pnl.jar "\ghco_trades.csv"`<br>
 Follow the CLI prompts
-
-## Docker
-Navigate to project root directory<br>
-`docker compose -f docker/docker-compose.yml build`<br>
-`docker compose -f docker/docker-compose.yml run ghco`
-
-To change the trades list, change `,"/ghco_trades.csv"` in the dockerfile ENTRYPOINT
 
 ## More docker
 `cd project root`<br>
