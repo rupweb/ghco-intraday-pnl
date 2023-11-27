@@ -3,7 +3,7 @@
 ## Pre-built jar
 Navigate to `build/libs` and download `ghco-intraday-pnl.jar`<br>
 Run `java -jar ghco-intraday-pnl.jar`<br>
-Or run `java -jar ghco-intraday-pnl.jar "\ghco_trades.csv"`<br>
+Or run `java -jar ghco-intraday-pnl.jar "\ghco_trades.csv"` to parse the trades list<br>
 
 ## Docker
 Navigate to project root directory<br>
