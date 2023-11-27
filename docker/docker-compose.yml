@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  service:
+    container_name: fix-initiator
+    init: true
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8226:8226"
+      - "8085:8085"
+    networks:
+      awesome_network:
+    volumes:
+      - ./volumes/initiator-secrets:/mnt/secrets
+
+networks:
+  awesome_network:
