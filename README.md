@@ -4,31 +4,31 @@
 git clone git@github.com:rupweb/ghco-intraday-pnl.git
 
 ## Gradle
-`gradle build` will build & run tests
-`gradle build --scan` will build & run tests with a gradle build scan.
+`gradle build` will build & run tests<br>
+`gradle build --scan` will build & run tests with a gradle build scan.<br>
 For example: https://scans.gradle.com/s/rtpsa7alixdxw
 
 ## Jar
-`gradle shadowJar` will make a fat jar in the `/build/libs` directory.
-Navigate to `build/libs` and move `ghco_trades.csv` or another csv of trades to that directory.
-Run `java -jar ghco-intraday-pnl.jar "\ghco_trades.csv"`
+`gradle shadowJar` will make a fat jar in the `/build/libs` directory.<br>
+Navigate to `build/libs` and move `ghco_trades.csv` or another csv of trades to that directory.<br>
+Run `java -jar ghco-intraday-pnl.jar "\ghco_trades.csv"`<br>
 Follow the CLI prompts
 
 ## Docker
-Navigate to project root directory
-`docker compose -f docker/docker-compose.yml build`
+Navigate to project root directory<br>
+`docker compose -f docker/docker-compose.yml build`<br>
 `docker compose -f docker/docker-compose.yml run ghco`
 
 To change the trades list, change `,"/ghco_trades.csv"` in the dockerfile ENTRYPOINT
 
 ## More docker
-`cd project root`
-`docker build -f docker/Dockerfile . -t ghco`
+`cd project root`<br>
+`docker build -f docker/Dockerfile . -t ghco`<br>
 `winpty docker run -i -t ghco`
 
 ## Run docker in background & attach
-`docker compose -f docker/docker-compose.yml build`
-`docker compose -f docker/docker-compose.yml up -d`
+`docker compose -f docker/docker-compose.yml build`<br>
+`docker compose -f docker/docker-compose.yml up -d`<br>
 `docker attach ghco-intraday-pnl`
 
 ## Update
