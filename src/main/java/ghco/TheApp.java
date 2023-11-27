@@ -38,6 +38,7 @@ public class TheApp {
 
         do {
             System.out.println("Enter trade or PnL criteria:");
+            System.out.println("For example (NEW, ABC1, USD, B, 100, 100.01)");
             userInput = scanner.nextLine();
 
             if (!"EXIT".equalsIgnoreCase(userInput)) {

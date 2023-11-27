@@ -33,7 +33,7 @@ class AmendTradeTest {
                 "portfolio2", "AMEND", "Account5", "Strategy1", "User3", LocalDateTime.parse("2010-12-09T16:06:10.133460"), "20101209");
 
         // Process
-        tradeRepo.processTrade(trade1);
+        tradeRepo.processTrade(trade2);
 
         // Get the PnL
         calculator.getPosition("VOO US ETF");

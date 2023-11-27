@@ -5,12 +5,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class PnLCalculator {
     private static final Logger log = LogManager.getLogger(PnLCalculator.class);
     private final Map<String, PnLAccount> positions = new HashMap<>();
     public PnLAccount getPosition(String key) { return positions.get(key); }
+
+    private final String totalKey = "TOTAL";
 
     void newPosition(Trade newTrade) {
         // Create unique identifiers for each category
@@ -26,6 +27,7 @@ public class PnLCalculator {
         updatePositionWithTrade(strategyKey, newTrade);
         updatePositionWithTrade(userKey, newTrade);
         updatePositionWithTrade(currencyKey, newTrade);
+        updatePositionWithTrade(totalKey, newTrade);
     }
 
     private void updatePositionWithTrade(String key, Trade trade) {
@@ -68,8 +70,11 @@ public class PnLCalculator {
         for (PnLAccount pnlAccount : positions.values()) {
             double PnL = pnlAccount.calculatePnL();
             System.out.println("PnL for criteria: " + pnlAccount.getKey() + " is " + PnL);
-            totalPnL += PnL;
-            System.out.println("Running total PnL: " + totalPnL);
+
+            if (pnlAccount.getKey().equals(totalKey)) {
+                totalPnL += PnL;
+                System.out.println("Running total PnL: " + totalPnL);
+            }
         }
 
         return totalPnL;
@@ -120,6 +125,7 @@ public class PnLCalculator {
         updatePositionWithTrade(strategyKey, reverseTrade);
         updatePositionWithTrade(userKey, reverseTrade);
         updatePositionWithTrade(currencyKey, reverseTrade);
+        updatePositionWithTrade(totalKey, reverseTrade);
     }
 
     private Trade reverseTrade(Trade t) {
