@@ -1,5 +1,39 @@
 # ghco-intraday-pnl
 
+## Git
+git clone git@github.com:rupweb/ghco-intraday-pnl.git
+
+## Gradle
+`gradle build` will build & run tests
+`gradle build --scan` will build & run tests with a gradle build scan.
+For example: https://scans.gradle.com/s/rtpsa7alixdxw
+
+## Jar
+`gradle shadowJar` will make a fat jar in the `/build/libs` directory.
+Navigate to `build/libs` and move `ghco_trades.csv` or another csv of trades to that directory.
+Run `java -jar ghco-intraday-pnl.jar "\ghco_trades.csv"`
+Follow the CLI prompts
+
+## Docker
+Navigate to project root directory
+`docker compose -f docker/docker-compose.yml build`
+`docker compose -f docker/docker-compose.yml run ghco`
+
+To change the trades list, change `,"/ghco_trades.csv"` in the dockerfile ENTRYPOINT
+
+## More docker
+`cd project root`
+`docker build -f docker/Dockerfile . -t ghco`
+`winpty docker run -i -t ghco`
+
+## Run docker in background & attach
+`docker compose -f docker/docker-compose.yml build`
+`docker compose -f docker/docker-compose.yml up -d`
+`docker attach ghco-intraday-pnl`
+
+## Update
+To update the docker image don't forget to run `gradle build` first.
+
 ## Task: 
 Develop an application that processes simplified trade data from a CSV file to calculate and display intraday cash position aggregations (PnL) in USD.
 

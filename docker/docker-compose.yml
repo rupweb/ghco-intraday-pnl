@@ -1,18 +1,15 @@
 version: '3.8'
 services:
-  service:
-    container_name: fix-initiator
+  ghco:
+    container_name: ghco-intraday-pnl
     init: true
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    ports:
-      - "8226:8226"
-      - "8085:8085"
     networks:
       awesome_network:
-    volumes:
-      - ./volumes/initiator-secrets:/mnt/secrets
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
 
 networks:
   awesome_network:

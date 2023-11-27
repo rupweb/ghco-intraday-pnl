@@ -13,23 +13,36 @@ public class TheApp {
     private static final Logger log = LogManager.getLogger(TheApp.class);
     public static void main(String[] args) {
         PnLCalculator calculator = new PnLCalculator();
+        TradeRepository tradeRepo = new TradeRepository(calculator);
 
         // Find file
-        String csvFile = "/src/main/resources/ghco_trades.csv";
+        if (args.length == 0) {
+            System.out.println("Trades csv file not specified");
+            System.out.println("To specify trades csv file add file to jar directory and restart with \\ filename as argument");
+            System.out.println("For example: java -jar ghco-intraday-pnl.jar \"\\ghco_trades.csv\"");
+        }
+        else {
+            System.out.println("Load trades file? y");
+            Scanner scanner1 = new Scanner(System.in);
+            String userInput = scanner1.next();
 
-        // Read file & make trade objects
-        List<Trade> trades = new OpenCsv().populateTrades(csvFile);
+            if (userInput.equalsIgnoreCase("y")) {
+                String csvFile = args[0];
 
-        // Process the initial positions
-        TradeRepository tradeRepo = new TradeRepository(calculator);
-        tradeRepo.updateTradeList(trades);
+                // Read file & make trade objects
+                List<Trade> trades = new OpenCsv().populateTrades(csvFile);
+
+                // Process the initial positions
+                tradeRepo.updateTradeList(trades);
+            }
+        }
 
         // Implement a simple CLI for manual trades and cancellations
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
         System.out.println("Enter a trade (format: action, bbgCode, ccy, side, quantity, price)");
-        System.out.println("For example (NEW, ABC1, USD, B, 100, 100.01)");
+        System.out.println("For example (NEW, ABC1, USD, B, 100, 100.00)");
         System.out.println("Or enter a PnL criteria(format: PNL, criteria)");
         System.out.println("For example (PNL, Strategy2)");
         System.out.println("Or enter (PNL, LIST) to see the available criteria");
@@ -38,15 +51,22 @@ public class TheApp {
 
         do {
             System.out.println("Enter trade or PnL criteria:");
-            System.out.println("For example (NEW, ABC1, USD, B, 100, 100.01)");
+            System.out.println("For example (NEW, ABC1, USD, B, 100, 100.00)");
+            System.out.println("Type 'EXIT' to quit:");
             userInput = scanner.nextLine();
 
             if (!"EXIT".equalsIgnoreCase(userInput)) {
                 // Parse user input and create a Trade object
+                if ("".equals(userInput)) {
+                    System.out.println("Unknown input");
+                    continue;
+                }
+
                 try {
                     if (getAction(userInput)) {
                         Trade userTrade = parseUserInput(userInput);
 
+                        System.out.println();
                         System.out.println("Created trade with id: " + userTrade.getTradeId());
 
                         // Process the user's trade
